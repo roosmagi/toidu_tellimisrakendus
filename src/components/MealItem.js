@@ -1,4 +1,5 @@
 import "../index.css"
+import Button from "./UI/Button"
 const MealItem = (meal) => {
     return (
         <li className="meal-item">
@@ -10,7 +11,7 @@ const MealItem = (meal) => {
                     <p className="meal-item-description">{meal.description}</p>
                 </div>
                 <p>
-                    <button >Add to Cart</button>
+                    <Button className="text-button">Add to Cart</Button>
                 </p>
             </article>
         </li>
