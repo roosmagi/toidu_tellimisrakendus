@@ -17,9 +17,14 @@ app.use((req, res, next) => {
 });
 
 app.get("/meals", async (req, res) => {
-  const meals = "[]" // data should be read from file
-  res.json(JSON.parse(meals));
-});
+  try{ 
+  const meals = await fs.readFile(path.join(__dirname, "./data/meals.json"), "utf-8")
+  res.json(JSON.parse(meals))
+} catch (error) {
+  console.error("Failed to read meals.json file", error)
+  res.status(500).json({message: "Internal Servel Error"})
+} 
+})
 
 app.use((req, res) => {
   if (req.method === "OPTIONS") {
