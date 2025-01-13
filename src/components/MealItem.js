@@ -1,6 +1,14 @@
 import "../index.css"
+import { useCart } from "../store/CartContext"
 import Button from "./UI/Button"
 const MealItem = (meal) => {
+    const {addItem} = useCart()
+    
+    const addToCart = () => {
+        addItem(meal.name)
+
+    } 
+    
     return (
         <li className="meal-item">
             <article>
@@ -11,7 +19,7 @@ const MealItem = (meal) => {
                     <p className="meal-item-description">{meal.description}</p>
                 </div>
                 <p>
-                    <Button className="text-button">Add to Cart</Button>
+                    <Button onClick={addToCart} className="text-button">Add to Cart</Button>
                 </p>
             </article>
         </li>

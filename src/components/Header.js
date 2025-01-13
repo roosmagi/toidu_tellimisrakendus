@@ -1,6 +1,9 @@
 import logo from '../assets/logo.jpg'
+import { useCart } from '../store/CartContext'
 import Button from './UI/Button'
 const Header = () => {
+    const {totalItems} = useCart() 
+
     return (
         <header id="main-header">
             <div id="title">
@@ -8,7 +11,7 @@ const Header = () => {
                 <h1>React Food Order App</h1>
             </div>
             <nav>
-            <Button textOnly>Cart (0)</Button>
+            <Button textOnly={true}>Cart ({totalItems})</Button>
             </nav>
         </header>
     )
