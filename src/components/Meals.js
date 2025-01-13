@@ -1,26 +1,41 @@
+import MealItem from "./MealItem"
+import { useState } from "react"
+import { useEffect } from "react"
+import "../index.css"
+
 const Meals = () => {
-    
-    async function fetchMeals() {
+    const [meals, setMeals] = useState([])
+    const [error, setError] = useState([null])
+    const [isLoading, setIsLoading] = useState([false])    
+
+    useEffect(() => {
+    const fetchMeals = async () => {
         try {
             const response = await fetch("http://localhost:3001/meals")
             if (!response.ok) {
-                throw new Error (`HTTP error! status: ${response.status}`)
+                throw new Error('Failed to fetch meals')
             } 
             const meals = await response.json()
-            console.log(meals)
-        } catch (error) {
-            console.error("Failed to fetch meals", error)
+            setMeals(meals)
+        } catch (err) {
+            setError(err.messsage)
+        } finally {
+            setIsLoading(false)
         } 
-    } 
-
-    fetchMeals()
+    }  
+    fetchMeals()    
+}, [])
     
     return (
-        <ul id="meals">
-            { 
-            <p>Create a list of meals, using fetch data from backend</p>
-            }
-        </ul>
+      <ul id="meals">
+                {meals.map((meal) => (
+                <MealItem
+                    name={meal.name}
+                    price={meal.price}
+                    description={meal.description}
+                    image={meal.image}/>
+            ))}
+            </ul>
     )
 }
 
